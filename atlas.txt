@@ -1,1 +1,1 @@
-mongodb+srv://aamir:<db_password>@cluster0.rskxvwx.mongodb.net/
+mongodb+srv://aamir:12345@cluster0.rskxvwx.mongodb.net/
