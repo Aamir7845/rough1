@@ -1,0 +1,128 @@
+Of course! I'll break down the HTML and corresponding TypeScript into small chunks so you can clearly see how each part works.
+
+✅ Chunk 1: Website Logo
+🔹 HTML
+html
+<div class="logo cursor-pointer" routerLink="/">
+  <span>UrbanBuy</span>
+</div>
+📌 This creates a clickable website logo that redirects to the homepage.
+
+🔹 TypeScript (header.component.ts)
+typescript
+router = inject(Router);
+✔ Injects Router to enable navigation. ✔ routerLink="/" automatically navigates to the homepage when clicked.
+
+✅ Chunk 2: Search Bar
+🔹 HTML
+html
+<input
+  type="text"
+  placeholder="Search for products..."
+  [(ngModel)]="searchTerm"
+  (keyup.enter)="onSearch($event)"
+/>
+<button type="submit"><i class="fas fa-search"></i></button>
+📌 Enables real-time search input with an icon button. ✔ [(ngModel)]="searchTerm" → Binds search input dynamically. ✔ (keyup.enter)="onSearch($event)" → Calls the function when Enter key is pressed.
+
+🔹 TypeScript (header.component.ts)
+typescript
+searchTerm!: string;
+
+onSearch(e: any) {
+  if (e.target.value) {
+    this.router.navigateByUrl("/products?search=" + e.target.value);
+  }
+}
+✔ Stores search input in searchTerm variable. ✔ Redirects to the products page with search query when user presses Enter.
+
+✅ Chunk 3: Profile Section (Admin vs Normal User)
+🔹 HTML
+html
+@if (authService.isAdmin) {
+  <a routerLink="/admin">{{ authService.userName | titlecase }}</a>
+} @else {
+  <a routerLink="/profile">{{ authService.userName | titlecase }}</a>
+}
+📌 Displays different links for Admin & Normal Users.
+
+🔹 TypeScript (header.component.ts)
+typescript
+authService = inject(AuthService);
+✔ Injects AuthService to check login status and user role (isAdmin). ✔ authService.userName | titlecase → Formats username to Title Case.
+
+✅ Chunk 4: Wishlist & Cart (Only for Logged-in Users)
+🔹 HTML
+html
+@if (authService.isLoggedIn && !authService.isAdmin) {
+  <a routerLink="/wishlists">
+    <mat-icon class="text-red-500">favorite</mat-icon>Wishlist
+  </a>
+  <a routerLink="/cart">
+    <mat-icon class="text-white">shopping_cart</mat-icon>Cart
+  </a>
+}
+📌 Shows Wishlist & Cart icons only if the user is logged in and NOT an admin.
+
+🔹 TypeScript (header.component.ts)
+typescript
+@if (authService.isLoggedIn) {
+  // User is logged in, so Wishlist & Cart appear
+}
+✔ Checks if the user is logged in before displaying these options. ✔ Uses mat-icon from Angular Material for better UI.
+
+✅ Chunk 5: Logout & Login/Register Buttons
+🔹 HTML
+html
+@if (authService.isLoggedIn) {
+  <a (click)="logout()" class="btn-action">Logout</a>
+} @else {
+  <a routerLink="/login" class="btn-action">Log In</a>
+  <a routerLink="/register" class="btn-action">Register</a>
+}
+📌 Shows Logout button if user is logged in, otherwise Login/Register options.
+
+🔹 TypeScript (header.component.ts)
+typescript
+logout() {
+  this.authService.logout();
+  this.router.navigateByUrl("/login");
+}
+✔ Logs the user out and redirects to the login page.
+
+✅ Chunk 6: Dynamic Category Navigation
+🔹 HTML
+html
+@if (authService.isLoggedIn) {
+  <nav class="category-menu">
+    <ul>
+      @for (category of categoryList; track $index) {
+        <li (click)="searchCategory(category._id!)" class="cursor-pointer">
+          <a>{{ category.name }}</a>
+        </li>
+      }
+    </ul>
+  </nav>
+}
+📌 Shows categories dynamically when user is logged in.
+
+🔹 TypeScript (header.component.ts)
+typescript
+categoryList: Category[] = [];
+
+ngOnInit() {
+  this.categoryService.getCategories().subscribe((result) => {
+    this.categoryList = result;
+  });
+}
+
+searchCategory(id: string) {
+  this.searchTerm = "";
+  this.router.navigateByUrl("/products?categoryId=" + id);
+}
+✔ Fetches category list dynamically from API. ✔ Handles product filtering by category when clicked.
+
+🔥 Final Summary
+✔ HTML ➝ Defines structure & UI components like buttons, search bar, and icons. ✔ TypeScript ➝ Handles dynamic logic for navigation, authentication, and filtering. ✔ Directives (@if, @for, routerLink) ➝ Ensure dynamic content loading based on user status.
+
+🚀 Would you like a deeper breakdown of any specific part? Let me know! 😊🔥
