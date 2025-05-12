@@ -1,0 +1,52 @@
+
+<div class="py-10 px-20">
+    <h3>My Orders</h3>
+    <div class="rounded-lg overflow-hidden">
+        <!-- Single Cart Item -->
+       
+        @for (order of orders; track $index) {
+            <h6>Order Id: {{order._id}}</h6>
+            <span>Date:</span><span>{{order.date | date:'mediumDate'}}</span>
+            <p>Order Status: {{order.status}}</p> 
+        <div class="mb-10 shadow-lg">
+          @for (item of order.items; track $index) {
+          <div class="flex items-center justify-between p-6 border-b">
+            <div class="flex items-center">
+              <img
+                [src]="item.product.images[0]"
+                alt="Product"
+                class="w-20 h-20 object-cover rounded"
+              />
+              <div class="ml-4">
+                <h2 class="!text-xl font-semibold">{{ item.product.name }}</h2>
+                <div class="flex gap-2 items-baseline">
+                  <span class="!text-lg text-gray-400"
+                    ><s>{{ item.product.price }}₹</s></span
+                  >
+                  <span class="!text-xs text-orange-300"
+                    >{{ item.product.discount }}% OFF</span
+                  >
+                  <span class="!text-lg text-green-500 font-bold"
+                    >{{ sellingPrice(item.product) }}₹</span
+                  >
+                </div>
+                <div>Ammount : {{ sellingPrice(item.product) * item.quantity }}₹</div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="flex items-center">
+                <span class="mr-4">Quantity:</span>
+                <span class="mx-2">{{ item.quantity }}</span>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      
+        <!-- End Single Cart Item -->
+      
+        <!-- Repeat for other items in the cart -->
+      </div>
+      
+</div>

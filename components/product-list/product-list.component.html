@@ -1,0 +1,60 @@
+<div class="flex px-10 py-2">
+  <div class="w-3/12">
+    <h6>Filters</h6>
+    <div class="flex flex-col px-6">
+      <div class="w-full p-2 mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Category</mat-label>
+          <mat-select
+            name="categoryId"
+            [(ngModel)]="categoryId"
+            (valueChange)="getProducts()"
+          >
+            @for (item of category; track $index) {
+            <mat-option [value]="item._id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="w-full p-2 mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Brands</mat-label>
+          <mat-select
+            name="brandId"
+            [(ngModel)]="brandId"
+            (valueChange)="getProducts()"
+          >
+            @for (item of brands; track $index) {
+            <mat-option [value]="item._id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1">
+    <div class="flex justify-between">
+      <h6>Products</h6>
+      <mat-form-field class="w-40">
+        <mat-label>Order By</mat-label>
+        <mat-select (valueChange)="orderChange($event)">
+          <mat-option [value]="1">Price Low to High</mat-option>
+          <mat-option [value]="-1">Price High to Low</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-wrap">
+      @for (product of products; track $index) {
+      <div class="w-3/12 mr-4 mb-4">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+      }@empty {
+      <h6>No Products founds</h6>
+      }
+    </div>
+    <div class="flex gap-4">
+      <button mat-raised-button color="primary" [disabled]="page==1" (click)="pageChange(page-1)">Previous</button>
+      <button mat-raised-button color="primary" (click)="pageChange(page+1)" [disabled]="!isNext">Next</button>
+    </div>
+  </div>
+</div>

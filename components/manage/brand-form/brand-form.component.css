@@ -1,0 +1,36 @@
+.brand-form-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 0 20px;
+}
+
+.brand-form {
+  width: 400px;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.form-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

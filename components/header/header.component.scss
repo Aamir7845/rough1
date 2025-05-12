@@ -1,0 +1,221 @@
+$primary-color: #ffffff;
+$secondary-color: #e0e0e0;
+$hover-bg: rgba(255, 255, 255, 0.1);
+$hover-border-color: #0d47a1;
+$action-btn-bg: linear-gradient(135deg, #1e88e5, #42a5f5);
+$action-btn-hover: linear-gradient(135deg, #1565c0, #2196f3);
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$transition-speed: 0.3s;
+
+// Header styles
+.site-header {
+  background: linear-gradient(120deg, #1a76d9 5%, #6b8f86 85%);
+  padding: 16px 28px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; // Enable wrapping on smaller screens
+    gap: 12px;
+  }
+
+  .logo {
+    span {
+      color: $primary-color;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: 1px;
+      transition: color $transition-speed ease;
+    }
+  }
+
+  .search-bar {
+    flex: 1 1 100%;
+    max-width: 480px;
+    margin: 0 24px;
+    position: relative;
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: $font-size-xl;
+      font-weight: 600;
+      transition: border-color $transition-speed ease, box-shadow $transition-speed ease;
+
+      &:focus {
+        border-color: #2196f3;
+        box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+        outline: none;
+      }
+    }
+
+    button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #444;
+      transition: color $transition-speed ease;
+
+      &:hover {
+        color: #2196f3;
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: $primary-color;
+      font-weight: 700;
+      font-size: $font-size-xl;
+      padding: 10px 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid transparent;
+      transition: all $transition-speed ease;
+
+      mat-icon {
+        font-size: 22px;
+      }
+
+      &:hover {
+        font-weight: 800;
+        color: #000000;
+        background-color: $hover-bg;
+        border-color: $hover-border-color;
+      }
+    }
+
+    .btn-action {
+      background: $action-btn-bg;
+      padding: 12px 20px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 800;
+      font-size: $font-size-xl;
+      border: none;
+      transition: background $transition-speed ease, box-shadow $transition-speed ease;
+
+      &:hover {
+        background: $action-btn-hover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+
+  .category-menu {
+    margin-top: 16px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      li {
+        a {
+          text-decoration: none;
+          color: $primary-color;
+          font-weight: 700;
+          font-size: $font-size-xl;
+          padding: 10px 16px;
+          border-radius: 10px;
+          border: 2px solid transparent;
+          transition: all $transition-speed ease;
+
+          &:hover {
+            font-weight: 800;
+            color: #000000;
+            background-color: $hover-bg;
+            border-color: $hover-border-color;
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 1024px) {
+    .search-bar {
+      max-width: 100%;
+      margin: 12px 0;
+    }
+
+    .profile {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo {
+      span {
+        font-size: 24px;
+      }
+    }
+
+    .profile a,
+    .profile .btn-action,
+    .category-menu ul li a {
+      font-size: $font-size-lg;
+      padding: 8px 12px;
+    }
+
+    .search-bar {
+      width: 100%;
+      input[type="text"] {
+        font-size: $font-size-lg;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .top-bar {
+      padding: 8px;
+    }
+
+    .logo span {
+      font-size: 20px;
+    }
+
+    .profile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .search-bar {
+      margin: 8px 0;
+    }
+
+    .category-menu {
+      ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}
