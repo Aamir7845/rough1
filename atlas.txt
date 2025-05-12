@@ -1,0 +1,1 @@
+mongodb+srv://aamir:<db_password>@cluster0.rskxvwx.mongodb.net/
