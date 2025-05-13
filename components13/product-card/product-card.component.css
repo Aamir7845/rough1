@@ -1,0 +1,138 @@
+/* Product Card Styles */
+.product-card {
+  width: 80%;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  height: 100%;
+  min-height: 430px;
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px; /* Adjust as needed */
+  object-fit:contain; /* Prevent image cutting */
+  object-position: center;
+  background-color: #f9f9f9;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Content area */
+.product-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+/* Clickable product info */
+.product-info {
+  cursor: pointer;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.product-description {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+/* Footer section with price and actions */
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.original-price {
+  font-size: 0.9rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.discount {
+  font-size: 0.75rem;
+  color: #ff9800;
+}
+
+.final-price {
+  font-size: 1.1rem;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+}
+
+.actions button {
+  background-color: #ff9800;
+  color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.actions button:hover {
+  background-color: #e68900;
+}
+
+mat-icon {
+  font-size: 20px;
+}
+
+/* Layout for product grid */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .product-card {
+    max-width: 100%;
+  }
+
+  .product-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

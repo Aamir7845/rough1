@@ -1,0 +1,11 @@
+<div class="px-40 py-10">
+  <div class="flex flex-wrap">
+    @for (product of wishlistService.wishlists; track $index) {
+    <div class="w-3/12 shadow">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+    }@empty {
+    <h4>Not Items in wishlist</h4>
+    }
+  </div>
+</div>

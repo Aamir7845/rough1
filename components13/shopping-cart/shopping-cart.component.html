@@ -1,0 +1,124 @@
+<div class="max-w-4xl mx-auto py-12">
+  @if (orderStep==0) {
+  <h1 class="text-3xl font-bold text-center mb-8">Your Shopping Cart</h1>
+
+  <!-- Cart Items -->
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <!-- Single Cart Item -->
+    @for (item of cartItems; track $index) {
+    <div class="flex items-center justify-between p-6 border-b">
+      <div class="flex items-center">
+        <img [src]="item.product.images[0]" alt="Product" class="w-20 h-20 object-cover rounded" />
+        <div class="ml-4">
+          <h2 class="!text-xl font-semibold">{{ item.product.name }}</h2>
+          <div class="flex gap-2 items-baseline">
+            <span class="!text-lg text-gray-400"><s>{{ item.product.price }}₹</s></span>
+            <span class="!text-xs text-orange-300">{{ item.product.discount }}% OFF</span>
+            <span class="!text-lg text-green-500 font-bold">{{ sellingPrice(item.product) }}₹</span>
+          </div>
+          <div>Ammount : {{ sellingPrice(item.product) * item.quantity }}₹</div>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center">
+          <span class="mr-4">Quantity:</span>
+          <span (click)="addToCart(item.product._id!, -1)"
+            class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer">-</span>
+          <span class="mx-2">{{ item.quantity }}</span>
+          <span (click)="addToCart(item.product._id!, 1)"
+            class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer">+</span>
+        </div>
+      </div>
+    </div>
+    }
+    <!-- End Single Cart Item -->
+
+    <!-- Repeat for other items in the cart -->
+  </div>
+  <!-- End Cart Items -->
+
+  <!-- Cart Summary -->
+  <div class="mt-8 bg-white shadow-md rounded-lg overflow-hidden p-6">
+    <h2 class="text-xl font-bold mb-4">Cart Summary</h2>
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-lg">Total:</span>
+      <span class="text-lg font-bold">{{ totalAmmount }}</span>
+    </div>
+    <div class="flex justify-end">
+
+      <button (click)="checkout()"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none"
+        [disabled]="totalAmmount === 0">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+  <!-- End Cart Summary -->
+  }@else if (orderStep==1) {
+  <h1 class="text-3xl font-bold text-center mb-8">Your Order</h1>
+  <form [formGroup]="addressForm">
+    Address
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label for="name">Address1</mat-label>
+        <input type="text" formControlName="address1" matInput placeholder="address1" />
+      </mat-form-field>
+    </div>
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label for="name">Address2</mat-label>
+        <input type="text" formControlName="address2" matInput placeholder="address2" />
+      </mat-form-field>
+    </div>
+    <div class="mb-6">
+      <mat-form-field class="w-full">
+        <mat-label>Enter City Name</mat-label>
+        <input type="text" formControlName="city" matInput placeholder="Enter City Name"
+          oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" />
+        <!-- <mat-error *ngIf="addressForm.get('city')?.hasError('required')">
+          City name is required.
+        </mat-error> -->
+        <!-- <mat-error *ngIf="addressForm.get('city')?.hasError('pattern')">
+          Only letters are allowed.
+        </mat-error> -->
+        @if (addressForm.get('city')?.hasError('required')) {
+        <mat-error>City name is required.</mat-error>
+        }
+
+        @if (addressForm.get('city')?.hasError('pattern')) {
+        <mat-error>Only letters are allowed.</mat-error>
+        }
+
+      </mat-form-field>
+    </div>
+    <div class="mb-6">
+      <mat-form-field class="w-full">
+        <mat-label>Enter 6-digit PIN Code</mat-label>
+        <input type="text" formControlName="pincode" matInput placeholder="Enter Pincode" maxlength="6"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        <!-- <mat-error *ngIf="pincodeError">
+      {{ pincodeError }}
+    </mat-error> -->
+        @if (pincodeError) {
+        <mat-error>{{ pincodeError }}</mat-error>
+        }
+
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button (click)="addAddress()" [disabled]="addressForm.invalid">Continue</button>
+  </form>
+  }@else if (orderStep == 2) {
+  <h1 class="text-3xl font-bold text-center mb-8">Select Payment Method</h1>
+  <div class="p-30 shadow">
+    <mat-radio-group [(ngModel)]="paymentType">
+      <mat-radio-button value="cash">Cash</mat-radio-button>
+      <mat-radio-button value="card" [disabled]="true">Card</mat-radio-button>
+    </mat-radio-group>
+
+    <button class="mt-20" mat-raised-button (click)="completeOrder()">
+      Continue
+    </button>
+  </div>
+  }
+</div>
