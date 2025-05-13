@@ -1,0 +1,58 @@
+<header class="site-header">
+  <div class="top-bar">
+    <div class="logo cursor-pointer" routerLink="/"> <!-- routerLink="/" makes the logo clickable, redirecting to the home page.  -->
+      <!-- <img src="logo.png" alt="Website Logo"> -->
+      <span>UrbanBuy</span>
+    </div>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search for products..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch($event)"
+      />
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="profile flex items-center gap-6">
+      @if (authService.isAdmin) {
+        <a routerLink="/admin">{{ authService.userName | titlecase }}</a> <!-- routerLink="/admin" → Redirects admins to the admin page. -->
+      } @else {
+        <a routerLink="/profile">{{ authService.userName | titlecase }}</a> <!-- routerLink="/profile" → Redirects normal users to their profile page.  {{ authService.userName | titlecase }} displays the user's name in title case (first letter capitalized).-->
+      }
+
+      @if (authService.isLoggedIn) {  <!-- CHECKED WEATHER AUTHER LOGEDIN ITO THEIR ACOUNT OR NOT -->
+        @if (!authService.isAdmin) { <!-- CHECK AUTHER IS ADMIN OR NOT IF USER IS NOT ADMIN THEN IT RUN THE IF CONDITION  -->
+          <a routerLink="/wishlists">
+            <mat-icon class="text-red-500">favorite</mat-icon>Wishlist
+          </a>
+          <a routerLink="/cart">
+            <mat-icon class="text-white">shopping_cart</mat-icon>Cart
+          </a>
+          <a routerLink="/orders">Orders</a>
+        }
+        <a (click)="logout()" class="btn-action">Logout</a>
+      } @else {
+        <a routerLink="/login" class="btn-action">Log In</a>
+        <a routerLink="/register" class="btn-action">Register</a>
+      }
+    </div>
+  </div>
+
+  @if (authService.isLoggedIn) {
+    <nav class="category-menu">
+      <ul>
+        @for (category of categoryList; track $index) {
+          <li (click)="searchCategory(category._id!)" class="cursor-pointer">
+            <a>{{ category.name }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+  <!-- Shows categories only if the user is logged in. 
+  ✔ @for (category of categoryList; track $index) loops through the category list dynamically. 
+  ✔ searchCategory(category._id!) calls a function to filter products by category. 
+  ✔ <li class="cursor-pointer"> makes each category clickable. -->
+</header>

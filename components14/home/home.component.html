@@ -1,0 +1,83 @@
+<!-- <div class="home-container">
+  <div class="carousel-wrapper">
+    <owl-carousel-o [options]="customOptions">
+      @for (item of bannerImages; track $index) {
+        <ng-template carouselSlide>
+          <div class="carousel-slide" [routerLink]="'/product/' + item._id">
+            <img [src]="item.images[0]" alt="Product Image" class="carousel-image" />
+            <span class="carousel-title">{{ item.name }}</span>
+          </div>
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
+
+  <div class="section">
+    <h4 class="section-title">Featured Products</h4>
+    <div class="product-grid">
+      @for (product of featuredProducts; track $index) {
+        <div class="product-wrapper">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="section">
+    <h4 class="section-title">New Products</h4>
+    <div class="product-grid">
+      @for (product of newProducts; track $index) {
+        <div class="product-wrapper">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      }
+    </div>
+  </div>
+</div> -->
+
+
+
+<!-- Carousel -->
+
+
+
+<!-- Flipkart-style Full-Width Carousel -->
+<div class="flipkart-carousel">
+  <owl-carousel-o [options]="customOptions">
+    @for (item of bannerImages; track $index) {
+      <ng-template carouselSlide>
+        <div class="carousel-full-slide">
+          <img
+            [src]="item.images[0]"
+            alt="{{ item.name }}"
+            class="carousel-full-image"
+          />
+        </div>
+      </ng-template>
+    }
+  </owl-carousel-o>
+</div>
+
+<!-- Featured Products Section -->
+<div class="product-section">
+  <h4 class="section-title">Featured Products</h4>
+  <div class="product-grid">
+    @for (product of featuredProducts; track $index) {
+      <div class="product-wrapper">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- New Products Section -->
+<div class="product-section">
+  <h4 class="section-title">New Products</h4>
+  <div class="product-grid">
+    @for (product of newProducts; track $index) {
+      <div class="product-wrapper">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    }
+  </div>
+</div>

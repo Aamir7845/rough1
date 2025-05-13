@@ -1,0 +1,59 @@
+<div class="product-card">
+  <img [src]="product.images[0]" alt="Product Image" class="product-image" [routerLink]="'/product/' + product._id" />
+
+  <div class="product-content">
+    <div class="product-info" [routerLink]="'/product/' + product._id">
+      <h6 class="product-name">{{ product.name }}</h6>
+      <p class="product-description">{{ product.shortDescription }}</p>
+    </div>
+
+    <div class="product-footer">
+      <div class="price-group">
+        <span class="original-price"><s>₹ {{ product.price }}</s></span>
+        <span class="discount">{{ product.discount }}% OFF</span>
+        <span class="final-price">₹ {{ sellingPrice }}</span>
+      </div>
+
+      <!-- <div class="actions">
+        <button mat-fab color="warn" (click)="addToWishList(product)">
+          @if (isInWishlist(product)) {
+            <mat-icon>favorite</mat-icon>
+          } @else {
+            <mat-icon>favorite_border</mat-icon>
+          }
+        </button>
+
+        <button mat-fab color="primary" (click)="addToCart(product)">
+          @if (isProductInCart(product._id!)) {
+            <mat-icon>remove_shopping_cart</mat-icon>
+          } @else {
+            <mat-icon>add_shopping_cart</mat-icon>
+          }
+        </button>
+        
+      </div> -->
+
+
+      <div class="actions">
+        @if (!authService.isAdmin) {
+        <button mat-fab color="warn" (click)="addToWishList(product)">
+          @if (isInWishlist(product)) {
+          <mat-icon>favorite</mat-icon>
+          } @else {
+          <mat-icon>favorite_border</mat-icon>
+          }
+        </button>
+
+        <button mat-fab color="primary" (click)="addToCart(product)">
+          @if (isProductInCart(product._id!)) {
+          <mat-icon>remove_shopping_cart</mat-icon>
+          } @else {
+          <mat-icon>add_shopping_cart</mat-icon>
+          }
+        </button>
+        }
+      </div>
+
+    </div>
+  </div>
+</div>

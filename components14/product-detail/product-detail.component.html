@@ -1,0 +1,107 @@
+@if(product){
+<div class="product-container">
+  <div class="product-main">
+    <div class="product-images">
+      <img [src]="mainImage" class="main-image" />
+      <div class="thumbnail-list">
+        @for (url of product.images; track $index) {
+          <img [src]="url" class="thumbnail" (click)="changeImage(url)" />
+        }
+      </div>
+    </div>
+    <div class="product-info">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="product-description">{{ product.shortDescription }}</p>
+
+      <div class="price-action">
+        <div class="price-box">
+          <span class="price-strike"><s>₹ {{ product.price }}</s></span>
+          <span class="price-discount">{{ product.discount }}% OFF</span>
+          <span class="price-final">₹ {{ sellingPrice }}</span>
+        </div>
+
+      <!-- EDIT OF IF DECORATERS FOR ADMIN -->
+        @if (!authService.isAdmin) {  
+        <div class="action-buttons">
+          
+          <button mat-raised-button color="accent" (click)="addToWishList(product)">
+            @if(isInWishlist(product)){
+              <ng-container> <mat-icon class="text-red-500">favorite</mat-icon>
+              <span>Remove from Wishlist</span>
+            </ng-container>
+             
+            }@else{
+              <ng-container><mat-icon class="text-red-500">favorite_border</mat-icon>
+              <span>Add to Wishlist</span>
+            </ng-container>
+              
+            }
+          </button>
+
+          @if(isProductInCart(product._id!)){
+            <button mat-raised-button color="primary" (click)="addToCart(product)">
+              <mat-icon>remove_shopping_cart</mat-icon> Remove from Cart
+            </button>
+          }@else{
+            <button mat-raised-button color="primary" (click)="addToCart(product)">
+              <mat-icon>add_shopping_cart</mat-icon> Add to Cart
+            </button>
+          }
+        </div>
+      }
+      </div>
+    </div>
+  </div>
+
+  <div class="product-section">
+    <h3>Product Details</h3>
+    <p>{{ product.description }}</p>
+  </div>
+
+  @if (similarProducts.length) {
+  <div class="product-section">
+    <h4>Similar Categories</h4>
+    <div class="similar-products">
+      @for (product of similarProducts; track $index) {
+        <div class="similar-card">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      }
+    </div>
+  </div>
+  }
+
+  <div class="product-section">
+    <h3>Product Reviews</h3>
+    <div class="review">
+      <div class="review-header">
+        <div class="review-avatar">JD</div>
+        <div>
+          <p class="review-author">John Doe</p>
+          <p class="review-rating">5 stars</p>
+        </div>
+      </div>
+      <p class="review-text">
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec quam
+        sit amet ipsum gravida suscipit."
+      </p>
+    </div>
+  </div>
+
+  <div class="product-section">
+    <h4>Write a Review</h4>
+    <form>
+      <textarea
+        class="review-textarea"
+        placeholder="Write your review here..."
+        rows="4"
+      ></textarea>
+      <button type="submit" class="submit-button">
+        Submit Review
+      </button>
+    </form>
+  </div>
+</div>
+}@else{
+<h2>Loading...</h2>
+}

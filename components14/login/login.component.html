@@ -1,0 +1,117 @@
+<!-- <div class="flex justify-center w-full mt-10">
+  <div class="bg-white p-8 rounded shadow-md w-6/12 sm:w-96">
+    <h2 class="text-2xl font-bold mb-4">Login</h2>
+    <form [formGroup]="loginForm">
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label for="email">Email</mat-label>
+          <input
+            type="text"
+            formControlName="email"
+            matInput
+            placeholder="Your Email"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="mb-6">
+        <mat-form-field class="w-full">
+          <mat-label for="password">Password</mat-label>
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Your Password"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <button
+        mat-raised-button
+        (click)="login()"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+
+      
+    </form>
+  </div>
+</div> -->
+
+
+<div class="flex justify-center w-full mt-10">
+  <div class="bg-white p-8 rounded shadow-md w-6/12 sm:w-96">
+    <h2 class="text-2xl font-bold mb-4">Login</h2>
+    <form [formGroup]="loginForm">
+      <!-- Email Field -->
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Email</mat-label>
+          <input
+            type="text"
+            formControlName="email"
+            matInput
+            placeholder="Your Email"
+            required
+          />
+        </mat-form-field>
+        @if (email && email.invalid && (email.dirty || email.touched)) {
+          <div class="text-red-500 text-sm">
+            @if (email.errors?.['required']) {
+              <div>Email is required.</div>
+            }
+            @if (email.errors?.['email']) {
+              <div>Enter a valid email address.</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-6">
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Your Password"
+            required
+          />
+        </mat-form-field>
+        @if (password && password.invalid && (password.dirty || password.touched)) {
+          <div class="text-red-500 text-sm">
+            @if (password.errors?.['required']) {
+              <div>Password is required.</div>
+            }
+            @if (password.errors?.['pattern']) {
+              <div>
+                Must be 6+ chars, include 1 capital, 1 number, 1 special character.
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-between items-center mb-4">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="login()"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+        <button
+          mat-button
+          color="accent"
+          type="button"
+          (click)="forgotPassword()"
+        >
+          Forgot Password?
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
